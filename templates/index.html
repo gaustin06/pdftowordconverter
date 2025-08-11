@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Word Converter - Seismic LiveDocs</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Verizon logo aligned left -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-title-container">
+                    <img src="{{ url_for('static', filename='img/verizon-logo.png') }}" alt="Verizon Logo" class="verizon-logo">
+                    <div class="title-section">
+                        <h1 class="title">PDF to Word Converter</h1>
+                        <p class="subtitle">Seismic LiveDocs Templates</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <!-- Drag & Drop Area -->
+            <section class="upload-section" id="uploadSection">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>Drag your PDF files here</h3>
+                        <p>or click to select files</p>
+                        <p class="file-limit">Maximum 5 PDF files</p>
+                        <input type="file" id="fileInput" multiple accept=".pdf" hidden>
+                        <button class="btn btn-primary" id="selectFilesBtn">
+                            <i class="fas fa-folder-open"></i> Select Files
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Selected files list -->
+                <div class="files-list" id="filesList" style="display: none;">
+                    <h4>Selected files:</h4>
+                    <ul id="filesContainer"></ul>
+                    <div class="files-actions">
+                        <button class="btn btn-success" id="processBtn">
+                            <i class="fas fa-cogs"></i> Process Files
+                        </button>
+                        <button class="btn btn-secondary" id="clearFilesBtn">
+                            <i class="fas fa-trash"></i> Clear List
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-container">
+                    <h4>Processing files...</h4>
+                    <div class="current-file" id="currentFile"></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="progressText">0%</span>
+                        <span id="fileCounter">0 / 0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-container">
+                    <h4>Conversion completed</h4>
+                    <div class="results-summary" id="resultsSummary"></div>
+
+                    <!-- Converted files list -->
+                    <div class="converted-files" id="convertedFiles"></div>
+
+                    <!-- Failed files list -->
+                    <div class="failed-files" id="failedFiles" style="display: none;"></div>
+
+                    <div class="results-actions">
+                        <button class="btn btn-primary" id="newConversionBtn">
+                            <i class="fas fa-plus"></i> Load New Files
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer with logo -->
+        <footer class="footer">
+            <div class="footer-content">
+                <img src="{{ url_for('static', filename='img/verizon-logo.png') }}" alt="Verizon Logo" class="footer-logo">
+                <p>&copy; 2025 PDF to Word Converter | Optimized for Seismic LiveDocs</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Error modal -->
+    <div class="modal" id="errorModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Error</h3>
+                <span class="close" id="closeErrorModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeErrorBtn">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation modal -->
+    <div class="modal" id="confirmationModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-question-circle"></i> <span id="confirmationTitle">Confirmation</span></h3>
+                <span class="close" id="closeConfirmationModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirmationMessage">Are you sure you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelConfirmationBtn">Cancel</button>
+                <button class="btn btn-primary" id="confirmBtn">Yes, Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
