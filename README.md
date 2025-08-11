@@ -1,4 +1,4 @@
-# PDF to Word Converter - Seismic LiveDocs
+# PDF to Word Converter
 
 A modern web application for converting PDF documents to Word format, specifically optimized for Seismic LiveDocs templates. Built with Flask and featuring a responsive drag-and-drop interface.
 
