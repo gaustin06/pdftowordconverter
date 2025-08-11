@@ -180,7 +180,3 @@ python app.py
 - **Frontend Interface:** `templates/index.html`
 - **Styling:** `static/css/style.css`
 - **Interactivity:** `static/js/app.js`
-
----
-
-**Made with ❤️ for Seismic LiveDocs optimization**
